@@ -11,8 +11,10 @@ import matplotlib.gridspec as gridspec
 try:
     from .logistic import Modelling, scikit_regression
 except Exception:
-    from logistic import Modelling, scikit_regression
-    
+    try:
+       from logistic import Modelling, scikit_regression
+    except Exception:
+       import Modelling, scikit_regression 
     
 dirpath = os.path.dirname(__file__)
 dpath = join(dirname(dirpath),"data/") 
@@ -30,18 +32,18 @@ def paper_models(Nsample=-1, with_outliers='default', path=''):
         
         mH1=Modelling.model1(file_humans,outname=path+'humansAll_model1', Nsample=Nsample, with_outliers=with_outliers)  
 
-        r1=Modelling.model1(file_rats,outname=path+'ratsAll_model1', Nsample=Nsample, with_outliers=with_outliers)
+        r1=Modelling.model1(file_rats, outname=path+'ratsAll_model1', Nsample=Nsample, with_outliers=with_outliers)
         r1b=Modelling.model1(file_rats,outname=path+'ratsBlt50_model1', threshold=[0,Bthreshold], Nsample=Nsample, with_outliers=with_outliers)
         r1c=Modelling.model1(file_rats,outname=path+'ratsBgt50_model1', threshold=[Bthreshold,5e3], Nsample=Nsample, with_outliers=with_outliers)
-        r3=Modelling.model3(file_rats,outname=path+'ratsAll_model3', Nsample=Nsample)
+        r3=Modelling.model3(file_rats, outname=path+'ratsAll_model3', Nsample=Nsample)
 
     else:        
         mH1=Modelling.model1(file_humans,outname=path+'humansAll_model1_'+with_outliers, Nsample=Nsample, with_outliers=with_outliers)  
 
-        r1=Modelling.model1(file_rats,outname=path+'ratsAll_model1_'+with_outliers, Nsample=Nsample, with_outliers=with_outliers)
+        r1=Modelling.model1(file_rats,outname= path+'ratsAll_model1_'+with_outliers, Nsample=Nsample, with_outliers=with_outliers)
         r1b=Modelling.model1(file_rats,outname=path+'ratsBlt50_model1_'+with_outliers, threshold=[0,Bthreshold], Nsample=Nsample, with_outliers=with_outliers)
         r1c=Modelling.model1(file_rats,outname=path+'ratsBgt50_model1_'+with_outliers, threshold=[Bthreshold,5e3], Nsample=Nsample, with_outliers=with_outliers)
-        r3=Modelling.model3(file_rats,outname=path+'ratsAll_model3_'+with_outliers, Nsample=Nsample, with_outliers=with_outliers)
+        r3=Modelling.model3(file_rats,outname= path+'ratsAll_model3_'+with_outliers, Nsample=Nsample, with_outliers=with_outliers)
 
     return mH1,  r1, r1b, r1c, r3
 
@@ -311,7 +313,7 @@ def main(run, outpath=None,summary=False,figure=None,  with_outliers="Robust_LR"
     if outpath is None:
         raise Exception("Please specify outpath to save outputs")
     else:
-        print("Will same data on outpath="+outpath)
+        print("Will save data on outpath="+outpath)
         if os.path.isdir(outpath) is False:
             os.system('mkdir '+outpath)
         
@@ -362,6 +364,7 @@ def main(run, outpath=None,summary=False,figure=None,  with_outliers="Robust_LR"
         ax2.set_xlabel('')
         
         ax3=f.add_axes([0.55,0.3,0.43,0.67])
+        C=sk.SVC_regression(dataset='humans', add_random=rand_offs)    
         #ax3.get_yaxis().set_ticklabels([])
         #ax3.set_ylabel('')
         
