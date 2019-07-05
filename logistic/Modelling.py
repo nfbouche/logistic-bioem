@@ -1130,7 +1130,7 @@ class model3(Model):
         ax3.set_xlim([-5,5])
         ax4=fig1.add_subplot(414)
         ax4.set_xlim([0,2.5])
-        ax4.set_xlabel(r'$\log B_t$', labelpad=1)
+        ax4.set_xlabel(r'$\log B_{\rm thr}$', labelpad=1)
         #ax4.axhline(30)
 
         axs=plot_kde(self.outname,['alpha','beta','gamma', 'Switch'],[ax1,ax2,ax3,ax4],'k',None,lw=2)
