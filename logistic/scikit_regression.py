@@ -5,8 +5,13 @@ from sklearn.model_selection import GridSearchCV
 from matplotlib import pyplot as p
 import numpy as np
 
-from . import Modelling
-
+try:
+   from logistic import Modelling
+except Exception:
+   try:
+      from .logistic import Modelling
+   except Exception:
+      import Modelling
 
 #Bthreshold=45
 class scikit:
