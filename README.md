@@ -23,9 +23,9 @@ run_all(run=True,output='paper/')
 
 # Run as script:
 
-to use the paper version
+to recreate the figures from the paper use
 ```
-python logistic/run_all.py path_to_save 
+python logistic/run_all.py paper/
 ```
 In addition, it is possible to experiment with the outlier rejection as follows
 ```
