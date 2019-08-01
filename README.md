@@ -5,7 +5,9 @@ This is the algorithm used to perform the analysis in Bouché & McConway, Bioele
 
 It uses PyMC3 and requires python2.7 or 3.5 (in a virtual environment). See INSTALL for instruction.
 
-The figures of the paper can be made using this code as follows:
+The figures of the paper can be made using the script below.
+
+See the INSTALL instructions
 
 # Run from ipython from 
 
