@@ -336,7 +336,7 @@ def main(run, outpath=None,summary=False,figure=None,  with_outliers="Robust_LR"
         #figure 1:
         f=plt.figure(1,figsize=(10,8))
         f.clf()
-        Bhist = make_histogram_figure(file_humans,file_rats, outpdf = path+'Figure1.pdf')
+        Bhist = make_histogram_figure(file_humans,file_rats, outpdf = join(outpath, 'Figure1.pdf'))
 
     if run:
         #run_all
@@ -368,7 +368,7 @@ def main(run, outpath=None,summary=False,figure=None,  with_outliers="Robust_LR"
         #ax3.get_yaxis().set_ticklabels([])
         #ax3.set_ylabel('')
         
-        f.savefig(path+'Figure2.pdf')
+        f.savefig(join(outpath,'Figure2.pdf'))
         
     if figure==22:
         #figure 2 variant compact
@@ -387,7 +387,7 @@ def main(run, outpath=None,summary=False,figure=None,  with_outliers="Robust_LR"
         #ax3.get_yaxis().set_ticklabels([])
         #ax3.set_ylabel('')
         
-        f.savefig(path+'Figure2b.pdf')
+        f.savefig(join(outpath,'Figure2b.pdf'))
    
     if figure is None or figure==3:    
         #figure 3
@@ -404,7 +404,7 @@ def main(run, outpath=None,summary=False,figure=None,  with_outliers="Robust_LR"
         r1b.plot_wtime(title='Rats B$<$%d $\mu$T' %(Bthreshold), outname = None,  ycust=[-0.9,1.5], text=False)
         
        
-        f.savefig(path+'Figure3.pdf')
+        f.savefig(join(outpath,'Figure3.pdf'))
 
         
     if figure is None or figure==4:
@@ -417,14 +417,14 @@ def main(run, outpath=None,summary=False,figure=None,  with_outliers="Robust_LR"
         C=sk.SVC_regression(dataset='rats',add_random=rand_offs)
         f.subplots_adjust(wspace=0.15,left=0.05,right=0.95)
         f.tight_layout()
-        f.savefig(path+'Figure4.pdf')
+        f.savefig(join(outpath,'Figure4.pdf'))
    
     if figure is None or figure==5:    
         #figure 5
         f=plt.figure(5,figsize=(5,8))
         f.clf()
         #mH3.plot_posteriors(outname='../figs/humansAll_comboswitch_posteriors.pdf')
-        r3.plot_posteriors(f,outname=path+'Figure5.pdf') 
+        r3.plot_posteriors(f,outname=join(outpath,'Figure5.pdf'))
         f.tight_layout()   
         
     #######MACROS
