@@ -18,7 +18,7 @@ cd logistic-bioem;
 ipython
 ```
 from logistic import run_all
-run_all(run=True,output='paper/')
+run_all.main(run=True,outpath='paper/')
 ```
 
 # Run as script from logistic-bioem directory:
