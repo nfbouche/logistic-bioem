@@ -25,8 +25,10 @@ run_all(run=True,output='paper/')
 
 to recreate the figures from the paper use
 ```
+cd logistic-bioem;
 python logistic/run_all.py paper/
 ```
+
 In addition, it is possible to experiment with the outlier rejection as follows
 ```
 python logistic/run_all.py path_to_save --format Robust_LR      #to use robust LR
