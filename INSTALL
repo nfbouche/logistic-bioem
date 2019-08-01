@@ -18,7 +18,11 @@ pip install ipython  #to install ipython
 # install package 
 tar xzvf logistic.tar.gz
 
-pip install -r requirements.txt .
+#go to directory
+cd logistic-biom
+
+#install requirements pacakges
+pip install -r requirements.txt
 
 
 
