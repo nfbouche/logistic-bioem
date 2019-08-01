@@ -25,5 +25,6 @@ setup(
     author_email='nicolas.bouche@univ-lyon1.fr',
     description='A tool to reproduce the results from Bouché & McConway ',
     packages=find_packages(),
+    package_data = { 'logistic': ['data/*tex']},
     install_requires=['astropy>=2.0', 'numpy>=1.14', 'scipy>=1.0.1,<1.2', 'matplotlib>=2.0', 'pandas>=0.18', 'pymc3==3.3', 'theano==1.0.4'],
 )
