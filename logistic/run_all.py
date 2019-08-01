@@ -6,7 +6,6 @@ np.random.seed(1234)
 rand_offs= np.random.normal(0,0.03,size=40)
 
 from matplotlib import pyplot as plt
-import matplotlib.gridspec as gridspec
 
 try:
     from .logistic import Modelling, scikit_regression
@@ -77,7 +76,7 @@ def run_Rats(filename, Nsample, with_outliers=None, path=''):
     return r1, r1b, r1c, r3
     
  
-def make_histogram_figure(table1,table2, outpdf='../figs/Bfield_histogram.pdf'):
+def make_histogram_figure(table1,table2, outpdf='Bfield_histogram.pdf'):
 
     hist=Modelling.Histogram_Bfield(humans=table1,rats=table2)
     hist.make_plot(outpdf=outpdf,verbose=True)
