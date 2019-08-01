@@ -9,11 +9,17 @@ The figures of the paper can be made using the script below.
 
 See the INSTALL instructions
 
-# Run from ipython from 
+# Run with 
+
+"run_all(run=True,output='path_to_save/')"
+
+cd logistic-bioem;
 
 ipython
-> from logistic import run_all
-> run_all(run=True,output='path_to_save/')
+```
+from logistic import run_all
+run_all(run=True,output='paper/')
+```
 
 # Run as script:
 
