@@ -16,9 +16,13 @@ ipython
 > run_all(run=True,output='path_to_save/')
 
 # Run as script:
+
+to use the paper version
 ```
 python logistic/run_all.py path_to_save 
-
+```
+In addition, it is possible to experiment with the outlier rejection as follows
+```
 python logistic/run_all.py path_to_save --format Robust_LR      #to use robust LR
 python logistic/run_all.py path_to_save --format Robust_LR05    #to use robust LR with p_out=0.5
 python logistic/run_all.py path_to_save --format default        #to turnoff robust_LR
