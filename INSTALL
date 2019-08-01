@@ -3,8 +3,9 @@
 
 See requirement.txt
 
+# Use either Python 2.7 or Python 3.5
 
-# install Python 2.7 or Python 3.5 in virtualenv:
+Note: it is a good advise to install Python 2.7 or Python 3.5 in virtualenv in order to not interfere with your installation
 
 bash
 cd path_to_logistic
@@ -17,7 +18,7 @@ pip install ipython  #to install ipython
 # install package 
 tar xzvf logistic.tar.gz
 
-pip install -r requirements.txt
+pip install -r requirements.txt .
 
 
 
