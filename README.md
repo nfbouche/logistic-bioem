@@ -33,6 +33,11 @@ python logistic/run_all.py path_to_save --format Robust_LR      #to use robust L
 python logistic/run_all.py path_to_save --format Robust_LR05    #to use robust LR with p_out=0.5
 python logistic/run_all.py path_to_save --format default        #to turnoff robust_LR
 ```
+To rerun the figures without running the Baeysian code:
+```
+python logistic/run_all.py paper/ --read
+```
+
 # Bugs & issues
 
 Please send bug report and/or issues with installation to nicolas.bouche@univ-lyon1.fr
