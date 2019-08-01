@@ -9,9 +9,9 @@ The figures of the paper can be made using the script below.
 
 See the INSTALL instructions
 
-# Run with 
+# Run from logistic-bioem directory with 
 
-"run_all(run=True,output='path_to_save/')"
+"run_all(run=True,outpath='path_to_save/')"
 
 cd logistic-bioem;
 
@@ -21,7 +21,7 @@ from logistic import run_all
 run_all(run=True,output='paper/')
 ```
 
-# Run as script:
+# Run as script from logistic-bioem directory:
 
 to recreate the figures from the paper use
 ```
