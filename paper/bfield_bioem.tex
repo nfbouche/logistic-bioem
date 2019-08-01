@@ -1,1 +1,625 @@
-/home/nbouche/papers/2017_Bfield/bfield_bioem.tex
+\documentclass[a4]{article}
+ 
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{natbib}
+\usepackage{hyperref}
+%\usepackage[draft]{hyperref}
+\usepackage{amssymb,amsmath}
+\usepackage[utf8]{inputenc}
+
+\usepackage{ifthen}
+ 
+%\usepackage[doublespacing]{setspace}
+
+%\modulolinenumbers[5]
+ 
+\bibliographystyle{humanbio}
+\setcitestyle{square}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nb}[1]{{\color{red}TODO:  #1}}  %{\color{red}A number } 
+\newcommand{\refs}{{\color{blue} [add refs]}}
+\newcommand{\tbr}[1]{To be removed:{\color{yellow} #1}}
+\newcommand{\flow}{fLOW}
+\newcommand{\fhigh}{fHIGH}
+
+%\renewcommand{\baselinestretch}{2}
+
+%%%%%%%%%%%%%%%%%%%
+
+\include{bfield_paper_macros}
+
+\begin{document}
+%\begin{frontmatter}
+
+\title{ Melatonin Levels and Low-Frequency Magnetic Fields in Humans and Rats: New Insights from a Bayesian Logistic Regression}
+%\tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
+
+%% Group authors per affiliation:
+%\author{Nicolas F. Bouché\fnref{myfootnote}}
+%\address{Radarweg 29, Amsterdam}
+%\fntext[myfootnote]{Since 1880.}
+
+%% or include affiliations in footnotes:
+
+\author{Nicolas F. Bouché$^1$ \&\ Kevin McConway$^2$} 
+\date{%
+$^1$ Univ Lyon, Univ Lyon1, ENS de Lyon, CNRS, Centre de Recherche en Astrophysique de Lyon UMR5574,   Saint-Genis-Laval, France\\
+$^2$ Prof. Emeritus, Dept. of Mathematics And Statistics, The Open University, UK
+}
+ \maketitle
+ 
+ Corresponding author: Nicolas F. Bouché, 9 Av Charles André, F-69230 Saint-Genis-Laval, France. Email: nicolas.bouche@univ-lyon1.fr\\
+Grant sponsors: none\\
+Conflict of interest: none 
+\clearpage
+
+\begin{abstract}
+{\bf Background:}
+ The present analysis revisit the impact  of extremely low-frequency magnetic fields (ELF MF) on  melatonin (MLT) levels in human and rat subjects using both a parametric and non-parametric approach. 
+ {\bf Method:}
+ In this analysis, we use    \Ntot\    studies from review articles.
+ The parametric approach consists in a Bayesian Logistic Regression (LR) analysis   and the non-parametric approach consists of a Support Vector analysis which  are both robust against spurious/false results.
+{\bf Results:}  Both approach reveal a unique well ordered pattern, and show that humans and rat studies are consistent with each other
+once the MF strength is restricted to cover the same range (with $B\lesssim50\mu$T). In addition, the data reveal that chronic exposure  (longer than $\sim\humansModelOneBetaDays$ days)  to ELF MF appears to decrease MLT levels only when the MF strength is below a threshold of $\sim30\mu$T ($\log B_{\rm thr}/\mu$T$=\ratsModelThreeSwitch$~\ratsModelThreeSwitchErr), i.e.,   when the man-made ELF MF intensity is below that of the static  geomagnetic field. 
+{\bf Conclusions:}
+Studies reporting an association between ELF MF and changes to MLT levels and  the opposite (no association with ELF MF) can be reconciled under a single framework.
+\end{abstract}
+
+Keywords:
+statistics: Bayesian ; epidemiology ; non-ionizing radiation; electro-magnetic field (EMF) ; melatonin
+
+%\end{frontmatter}
+
+\clearpage
+
+\section*{Introduction}
+
+Since the epidemiological study of  \citet{Wertheimer1979},
+concerns for  adverse health effects (in particular for childhood leukemia) due to electrical and magnetic fields (MFs) 
+generated   in the Extremely Low Frequency (ELF) regime ($< 300$ Hz, but mostly at 50-60 Hz)   by power lines have been
+raised in the west and   also from  case-reports of electrical substation workers in the former Soviet Union   \citep[e.g.][]{Zhadin2001}.
+This potential association between residential exposure to ELF Magnetic Fields (ELF-MF) and childhood leukemia has remained from the various pooled analysis of the numerous epidemiological studies \citep{Ahlbom2000,Draper2005,Kheifets2005,Kheifets2013,Savitz2003,SermageFaure2013,Schuz2007,Schuz2016} which revealed that the relative risk for leukemia  is approximately 2$\times$ for MF of intensities $\geq0.4$ $\mu$T. 	
+This elevated risk for childhood leukemia has led to the World Health Organization to label ELF MF as possible carcinogen `class 2B' based on  International Agency for Research on Cancer (IARC) report on the subject \citep{iarc2002},
+a conclusion recently re-affirmed by the  IARC chair on non-ionizing radiation \citep{Schuz2016}.
+
+Historically, \citet{Stevens1996} proposed the so-called melatonin   hypothesis
+in the context of breast cancer involving ELF MFs
+discussed in the 90s \citep[as reviewed in ][]{Brainard1999,Kliukiene2004}.
+Under this hypothesis, the well-known  melatonin (MLT)  hormone produced by the pineal gland
+that  controls  the body’s sleep/wake cycle \citep[e.g.][]{Reiter1985,Reiter1991}, 
+ would be an intermediary agent where  ELF MF would somehow impact MLT levels and this  in turn
+would increase the risk of developing a disease or cancer.  This hypothesis was put forward 
+because (i) it was known by \citet{Stevens1996} that somehow the pineal gland responds to artificial EMF 
+\citep[since  the 80s:][]{Reiter1992,Reiter1993,Reiter1994,Stemm1980,Wilson1989,Wilson1990},
+ and (ii) because MLT is an effective anti-oxident agent, free radical scavenger, and a potent oncostatic agent \citep[e.g.][]{Allegra2003,Henshaw2005,Jung2006,Panzer1997,Reiter2016,Rodriguez2004}.  
+ Thus reduced MLT  levels could lead to an increase risk of cancer \citep[e.g.][]{Guenel1996,Kliukiene2004,Koeman2014} and other neurodegenerative  illnesses \citep[e.g.][]{Davanipour2014,Feychting2003,Huss2008} by increasing the oxidative stress as described in \citet{Mevissen1998} and reviewed in \citet{Consales2012}.
+ 
+ This hypothetical connection made by \citet{Stevens1996} between    circadian rhythm disruption and certain illnesses 
+has been revisited in the context of childhood leukemia by \citet{Henshaw2005}. 
+While this connection between MLT levels and ELF-MF lacked a clear mechanism, it seems to be related to the visual system since rats
+with severed optical nerves not longer respond to ELF-MF \citep{Olcese1985}. The exact mechanism with magneto-receptors in the retina is now
+a plausible scenario in light of recent developments in the study of magneto-reception from behavioural 
+\citep[e.g.][]{Bazalova2016,Gegear2008,Johnsen2005,kirschvink1991,Phillips1992,Ritz2004,Ritz2009, Malkemper2015,Sherrard2018,Wiltschko2005,Winklhofer2013,Wiltschko2014,Wiltschko2016,Yoshii2009}
+and  theoretical investigations \citep[e.g.][]{Hore2016,Ritz2010}
+where the cryptochrome CRY proteins discovered in the 90s  \citep{Ahmad1993,Ahmad2007,Ahmad1999,Ahmad2016,Chasmore1999,Chaves2011} would provide the radical pair mechanism postulated by \citet{Schulten1978} and
+be the (light-dependent) MF receptor 
+%~\footnote{See \citet{Weaver2000,Hore2012,Binhi2017,KapriPardes2017} and references therein for alternative magnetically sensitive chemical reactions.}
+ \citep{Hore2016,Liedvogel2010,Michael2017,Ritz2010b}.   
+ CRY proteins are widely expressed in cones and amacrine cells of the retina \citep[e.g.][]{Foley2011,Wong2018} and are thought to be the prime MF receptors  involved in avian compass.
+ 
+ As discussed in \citet{Lagroye2011}, CRYs which are ubiquitous, and   recently discovered (blue) light dependent magneto-photoreceptor,  should be assessed as a plausible mechanism behind some of the biological effects of ELF MFs.
+ CRYs are also involved in the regulation of circadian biorhythms  \citep[e.g.][]{vanderHorst1999,Yoshii2009,Ono2013,Wong2018}, which led Vanderstraeten et al. 
+ \citep{Vanderstraeten2012,Vanderstraeten2012a,Vanderstraeten2015,Vanderstraeten2017} to revive the MLT hypothesis for childhood leukemia
+ and to formulate the cryptochrome hypothesis   in the context of the epidemiological results cited above (see also \citet{Lagroye2011,Juutilainen2018}). Under this hypothesis,
+weak MFs in the micro-tesla range disrupt the biorhythms, leading to disrupted MLT production rendering MLT as an effective marker  to be used in relation to weak MFs.  Moreover, it has been shown that pulsed MFs (PMF) can also stimulate a rapid accumulation of reactive oxygen species (ROS) ---a  metabolite implicated in stress response and cellular ageing--- but  only in insect cells expressing CRY \citep{Sherrard2018} leading \citet{Landler2018} to postulate that  carcinogenesis associated with power lines, PMF-induced ROS generation, and animal magnetoreception share a common mechanism.
+
+ However, the epidemiological  and laboratory studies on MLT levels and ELF MF  are often contradictory \citep[see reviews by][]{Jahandideh2010,Halgamuge2013,Henshaw2005,Lewczuk2014, Touitou2012}.
+In this paper,
+we use both a Bayesian parametric regression and a non-parametric approach on a compilation of \Ntot\ studies the evolution of  MLT levels on humans and rats exposed under weak ELF MFs.  Given that these studies are often inconsistent (in reporting variation or no changes in MLT levels), we are making sure to include both types of results.
+
+\section*{Materials}
+\label{section:method}
+
+Here, we present the compilation of \Ntot\ studies  reporting  MLT levels on humans  and rats 
+and our  Bayesian methodology.
+
+\subsection*{Melatonin Data on humans}
+\label{section:humans}
+
+\citet{Halgamuge2013}  compiled various studies on humans
+exposed to ELF published in the last 15-20 years where  MLT levels ---{mostly  6-sulfatoxymelatonin in urine samples (24hr)}---
+were reported. These authors included both laboratory (short term) and epidemiological (long term) studies. 
+From their collection of 33 studies, we noticed that some were duplicates, which were removed (e.g. their entries 13, 24, 25 are duplicates of their 11, 13 , 23 respectively).
+We verified each entry listed in \citet{Halgamuge2013} (their Table~4) regarding MF field strength and exposure duration, leading to some differences between their listing and this work.
+
+  Since our focus is on studying the putative effect of environmental/ambient (i.e., large scale) MF on human MLT levels, 
+mostly from power lines where the entire body is subject to the MF, we did not consider studies
+ that  involved very localized ELF such as
+those from electric blankets, video displays, nor cell phone usage. Furthermore, we did not consider those 
+ regarding geomagnetic storms,   in-vitro studies, or involving static magnetic field.
+
+
+ Table~\ref{table:halga} lists the studies from \citet{Halgamuge2013} used in this analysis. Note that it includes the 14 studies listed in the review of \citet{Henshaw2005}, and
+we included a few studies not included in the original review of \citet{Halgamuge2013} but in the review article of \citet{Touitou2012}, such as  \citet{Griefahn2001,Kurokawa2003,Cocco2005,Davis2006} and \citet{Warman2003}. 
+The only study we rejected is that of \citet{Touitou2003} which is based on a small sample (30) of individuals/electrical workers preselected not to have any sleep disturbances, i.e., is biased against finding any sleep/MLT perturbation from ELF MF. We note that last study is in contrast to the recent work of \citet{Liu2014} on 854 workers showing an increase of sleep disturbance in some utility workers   (see also \citet{Monazzam2014} on this subject).
+ 
+In Table~\ref{table:halga}, some studies claim that MLT levels are affected, but the changes are invariably in the sense of a decrease of the MLT production or a phase shift.
+In contrast, other studies claim that the MLT level is not affected by MFs.  The effect/no-effect outcome naturally leads to 
+ logistic modeling (described in the Methods section) appropriate for such binary situations   \citep{Hosmer2000}. The logistic approach makes no implicit assumption and is simpler than invoking a model that assumes a linear relation between MLT levels, exposure duration, etc.
+
+ Unfortunately, MLT studies are heterogeneous and there is no universal way to quantify the amount of decrease in MLT production across these studies. Thus,  we assign the outcome of the studies listed in Table~\ref{table:halga} a 1(0) depending on whether the original authors reported change (no change)  in MLT levels, respectively. When the study reported `some' change, we assign the outcome of the study a 0.5. This would correspond to, for instance, when changes were observed only for a sub-group of the study.
+%Melatonine Cells: \citet{Cid2012}
+
+
+\subsection*{Melatonin Data on rats}
+\label{section:rats}
+ 
+\citet{Jahandideh2010} compiled various laboratory studies on the putative effect of ELF MF  on rat MLT,
+whose list is reproduced in  Table~\ref{table:rats}. 
+We  removed the entries that were not consistent with the original study, e.g. the entries with ID 13,14 and 15 from \citet{John1998}.
+In addition, we added the study of \citet{Loscher1994} and \citet{Loscher1998}.
+As in the previous section, we assign rat studies a 1(0) depending on whether the authors reported change (no change)  in  MLT levels, respectively.
+
+\citet{Jahandideh2010} investigated whether the MF exposure duration, MF polarization and other factors play a role. They concluded that the only factor that seemed to be the most significant is the duration of exposition to ELF MF, albeit with a  P-value of 0.07 implying that this factor is not significant at more than $>$95\%\ level, using a model linear with exposure duration and with field strength.
+
+
+
+\section*{Methods}
+
+\subsection*{A parametric bayesian analysis}
+\label{section:bayesian}
+
+
+As discussed in \citet{Jahandideh2010}, logistic regression (LR) is  a statistical  technique
+commonly used to examine the possible relationship between a dichotomous-dependent variable (here the effect/non-effect on MLT excretion pattern) and  independent variables (such as frequency, polarization, exposure duration, and MF). In general, the probability $P$ to observe an effect (i.e., $Y=1$) is given by the logistic function:
+\begin{equation}
+P(Y=1)=\frac{1}{1+\exp(-t)}=\equiv L(t)\label{eq:logistic}
+\end{equation}
+where $t$ is usually taken to be a linear combination of the dependent variables, $X_n$, i.e., $t=\alpha+\beta_1 X_1+\cdots+\beta_n X_n$. However, one should keep in mind that such a linear combination of dependent variables makes a critical assumption: namely that these variables are independent of one another. In other words, the probability to have an effect might depend on the field exposition duration and on the magnetic field strength, but the coefficient for each of these variables are assumed to be independent of one another.
+
+
+In this work, we use a logistic function ($L(t)$; Eq.~\ref{eq:logistic}) where $t$ can be  a non-linear function of the independent variables. 
+$L(t)$ gives  the probability to observe an effect ($p\equiv L(t)$), and the observed realization is given
+by the  Bernoulli ($\rm Bern$) probability distribution since the observables are dichotomous, with values at 0 or 1,
+which can be written as (see Supplementary Material):
+\begin{eqnarray}
+t&=&f(X_i;\theta)\label{eq:model}\\
+p&=&L(t) \label{eq:model:p}\\
+O&\sim&{\rm Bern}(p) \label{eq:model:logistic}
+\end{eqnarray}
+where $O$ are the simulated observables. 
+\ifthenelse{\equal{\humansModelOneType}{Categorical}}{
+The LR model is made robust to spurious data by including a random variable $p_{\rm out}$ for each data point, and Eq.~\ref{eq:model:p} becomes
+\begin{eqnarray}
+p&=&
+\begin{cases}
+0.5 & \text{if $p_{\rm out}>0.5$}\\
+L(t) & \text{if $p_{\rm out}<0.5$}
+\end{cases}
+\end{eqnarray}
+where $p_{\rm out}$ is the  probability for data $X_i$ to be an outliers whose prior is Beta function peaking at 0 and 1, i.e., $p_{\rm out}(X_i)\sim B(0.5,0.5)$. 
+}{}
+\ifthenelse{\equal{\humansModelOneType}{Robust_LR}}{
+The LR model is made robust to spurious data by including an (unknown) outlier fraction $\pi$, i.e., Eq.~\ref{eq:model:p} becomes
+\begin{eqnarray}
+p&=&\pi \, p_{\rm out} + (1-\pi) \, L(t)
+\end{eqnarray}
+where $p_{\rm out}$ is the logistic probability for outliers  and $\pi$ is taken from a Uniform distribution from 0 to 0.5. We use uniform priors on $\pi$ and $p_{\rm out}$.
+}{}
+\ifthenelse{\equal{\humansModelOneType}{Robust_LR05}}{
+The LR model is made robust to spurious data by including an (unknown) outlier fraction $\pi$, i.e., $p$ becomes
+\begin{eqnarray}
+p&=&\pi \, 0.5 + (1-\pi) \, L(t)
+\end{eqnarray}
+where  the logistic probability for outliers is 50\%\ and $\pi$ is taken from a Uniform distribution from 0 to 0.5. We use broad priors on $\pi$ and $p_{\rm out}$.
+}{}
+\ifthenelse{\equal{\humansModelOneType}{None}}{
+The LR model  is then
+\begin{eqnarray}
+p&=&   L(t)
+\end{eqnarray}
+where $p_{\rm out}$ is the constant background probability and $\pi$ is given by the Beta distribution   $B(1,1)$. We use broad priors on $\pi$ and $p_{\rm out}$.
+}{}
+
+Next, we will consider the following two parametric LR models. First, we use a  model linear in exposure duration with $\log T$ as the single independent variable. Then,  we will use a variant of the logistic model where the slope $\alpha$ is a function of the MF strength in a dichotomous fashion for reasons that will be clearer in the Results section. 
+To summarize, the two   parametric models are
+\begin{eqnarray}
+\hbox{Model A:}\qquad 
+t&\equiv&\alpha_T\,(\log_{10} T-\beta_T)   \label{eq:model1}\\
+\hbox{Model B:}\qquad 
+t&\equiv& \begin{cases}
+ \alpha\, ( \log_{10} T - \beta ) & \text{if $ B < B_{\rm thr}$}\\
+ \gamma\,( \log_{10} T-\beta ) & \text{if $B\geq B_{\rm thr}$} 
+\end{cases}\label{eq:model3}
+\end{eqnarray}
+where $\alpha,\gamma$ are the linear slope, $\beta$ the transition point of the logistic function, and $B_{\rm thr}$ is the threshold level for model B. 
+
+In order to find the best parameters $\hat \theta$ for our model, we  use a Markov Chain Monte Carlo  
+(MCMC) algorithm. Because traditional MCMC algorithms are somewhat sensitive to the step size  and the desired number of steps. In what follows, we use the No-U Turn Sampler (NUTS) of \citet{Hoffman2014} -- implemented in \textsc{Pymc3} \citet{pymc3}, -- a self-tuning variant of Hamiltonian Monte Carlo (HMC), except when the model is not continuous  (as in model B) where we revert to  the traditional Metropolis-Hasting sampling method.
+We typically use 2   MCMC chains per run and 15,000 iterations to 25,000 iterations per chain.
+%Throughout, we use uninformative proper priors (such as in Eq.~\ref{eq:priors:linearT}) on bound intervals. 
+ 
+\subsection*{A non-parametric analysis}
+
+  
+ In order to investigate the inherent limitations of our parametric approach (as in any regression), we applied a non-parametric supervised classification algorithm to the data sets in order to determine whether there are robustly-defined regions in the parameter space that divide studies reporting a change in MLT levels with those that reported no change. We chose to apply the Support Vector Classification (SVC) algorithm \citep{Cortes1995} implemented in the SVM module of the \textsc{scikit-learn} python package v0.19.1   \citep{sklearn}. Non-linear regions were investigated, using a Gaussian RBF (Radial Basis Function) kernel which uses a Gaussian similarity measure between points in the parameter space. The use of the RBF kernel depends on two quantities, $C$, the penalty parameter which describes the way in which smoothness of the boundaries of the classification regions in parameter space is traded off with misclassifications of the studies, and  $\gamma$, the kernel coefficient which defines how much influence each individual study has. We used $\gamma$ to be  1/number of features, and used a cross-validation technique to determine the penalty parameter which is $C\simeq3$.  %Unlike the logistic regression methods, SVC
+ This non-parametric approach is merely used to provide a `sanity check' to the parametric approach, as it does not directly give a probability of classification to each of the studies considered.
+ 
+ \section*{Results}
+ \label{section:results}
+ 
+ \subsection*{Magnetic field strengths}
+
+Figure~\ref{fig:Bhist} shows the histogram of mean MF strengths for the studies compiled on humans  (hatched) and on rats  (solid). The strength of the static Earth magnetic field $B_{\odot}\sim50\mu$T is indicated with the vertical dotted line, 
+but the local strength varies from $\sim30$ to $60\mu$T, depending on the latitude.
+
+This figure shows that  human studies cover the range of MF of strength from 0.1 to 50$\mu$T, while rat studies are involving MF of higher strengths from 1 to 1000 $\mu$T. The MF distributions for human and rat studies appear to be significantly different as a Kolmogorov Smirnov(KS)-test indicate the two histograms are not drawn from the same parent population, with a P-value of \HistPval.
+This difference is perhaps due to an implicit bias induced by researchers looking to bring out a signal in the lab, i.e., induced by a dose-response  expectation as in \citet{Warman2003}.
+
+ 
+ 
+\subsection*{Results on human studies} 
+\label{section:results:human}
+
+Regarding model A (described in the Methods section), we use   the following (uninformative) priors for the slope $\alpha$ and zero-point $\beta$:
+\begin{eqnarray}
+\alpha_T&\sim& {\cal N}(0,10)|_{\rm lo=-5}^{\rm up=5}\qquad
+\beta_T\sim{\cal U}(-2,3.5)\label{eq:priors:linearT}
+\end{eqnarray}
+where  the ${\cal N}(\mu,\sigma)$ is the normal distribution truncated on the interval [-5,5] and ${\cal U}$ is the Uniform distribution.
+The best fit parameters of model A with their 95\%\ credible intervals are  $\beta_T=\humansModelOneBeta$\humansModelOneBetaErr\  and  $\alpha_T=\humansModelOneAlpha$\humansModelOneAlphaErr\ (Table~\ref{table:humans:LR}).
+
+Figure~\ref{fig:humans}(left) shows the result from the LR model A applied on the \Nhums\ human studies reporting change or no change to human MLT levels. The top panel shows the data in the plane $\log B$---$\log T$ where the model predictive values are represented by the grey scale. The vertical line represents the best fit $\beta_T$ parameter, i.e., where the probability to have an effect is modeled to be 0.5.
+The bottom panel shows the model prediction (red solid line) as a function of  exposure duration $T$   where vertical dotted-dashed lines indicating a day, a month, and a year.  The shaded gray region represents the 95\%\ posterior uncertainties, calculated using the \citet{Wilson1927} score confidence interval  for binomial distributions, verified to be a continuous representation of the uncertainties found from the MCMC posteriors.  
+This figure shows that ELF-MFs start to have  an effect on MLT levels  with a probability larger than 50\%\ at around $\sim$\humansModelOneBetaDays~days. 
+
+Figure~\ref{fig:humans}(right) shows the same  \Nhums\ human studies  where we applied a  non-parametric SVC algorithm  and studies reporting change, partial change and no change on MLT levels are shown in red, yellow and blue respectively.
+This figure confirms that the studies reporting changes in MLT levels are predominantly in the region of parameter space with long exposure duration, supporting the results from the parametric LR shown on the left panel, and is not driven by a few rogue false data points. 
+
+\subsection*{Results on rat studies}
+\label{section:results:rats}
+
+We performed a similar analysis on the  studies available on laboratory rats (described earlier) and the results are listed  in  Table~\ref{table:rats:LR}. One notable difference  between studies involving humans or rats, is that the duration coefficient $\alpha_T$
+ appears to be much weaker in the case of rat studies ($\alpha_T\simeq \ratsModelOneAlpha$) than in the case of humans ($\alpha_T\simeq \humansModelOneAlpha$) and  $\alpha_T$ is much less significant  for rats.
+However, we remind the reader that, as shown in Figure~\ref{fig:Bhist}, only a handful of human studies  have MF strength above $
+\sim$50 $\mu$T, while about half of the studies on rats have MFs above this level.
+
+
+\subsection*{Towards a unified framework} 
+\label{section:results:bimodal}
+
+Given that human and rat studies differ significantly in the field strengths,  we show  in Figure~\ref{fig:rats:modelA}  the results for studies on laboratory rats when the MF strength is below (above)  45$\mu$T (chosen to avoid the four studies which are at 50.0$\mu$T), shown   in the bottom (top) panels, respectively. 
+These two panels clearly show that the effect on MLT levels becomes  random with respect to exposure duration $T$ when the MFs are above $\sim$50$\mu$T.
+In both panels, the red solid line represents the best  model (model A) obtained from the LR Bayesian analysis whose parameters are listed in Table~\ref{table:rats:LR}.
+
+
+Comparing Table~\ref{table:rats:LR} with the results of model A on humans in Table~\ref{table:humans:LR},
+one sees that  the statistics of change/no-change on MLT levels in
+ rat and human studies are consistent with each other,  {\bf only} {\it after restricting animal and human studies over the same range of MF strengths}.
+The time-dependent factor  is $\alpha_T=\humansModelOneAlpha$\humansModelOneAlphaErr\ for human studies and $\alpha_T\simeq\ratsModelOneBAlpha$\ratsModelOneBAlphaErr\ for rat studies. 
+ Furthermore the exposure duration where the MF exposure  becomes significant (with a probability to affect MLT levels greater than 50\%) is in both cases close to $\beta_T\sim1.2$, corresponding to  $\sim16$ days.
+
+ 
+Inspired by these results, we extended our LR model  to include  some (unknown) threshold MF, $B_{\rm thr}$, i.e., model B introduced in the Methods section. Figure~\ref{fig:rats:2D}(left) shows the data in the $\log T$--$\log B$ plane along with the model predictions represented as the grey scale. 
+Figure~\ref{fig:rats:2D} (right) shows  the non-parametric SVC analysis, and strongly supports the results from the Bayesian parametric LR.
+ Figure~\ref{fig:mcmc} shows that posterior distribution on each of the parameters for model B, whose best parameters are listed in Table~\ref{table:rats:LR}. 
+ 
+ The best threshold value determined by the data is $\log B_{\rm thr}=\ratsModelThreeSwitch$\ratsModelThreeSwitchErr\ (68\% CL), i.e., the magnetic threshold is $B_{\rm thr}\simeq10$--$65\mu$T. %While this threshold is somewhat loosely constrained owing to the spare sampling of MF strengths between 1 and 50 $\mu$T  in published rat studies, 
+ We note that the transition field  strength of $\sim50\mu$T   corresponds to
+two different regimes, one where the ELF MF are a mere perturbation to the ambient static terrestrial MF, which has
+an amplitude of $B_{\odot}\simeq50\mu$T, and the other where time varying ELF MF are the sole dominant contribution.  
+We discuss the implications of this in the next section.
+
+
+\subsection*{Discussion}
+ \label{section:discussion}
+ 
+
+In the context of our result of a threshold-dependent impact of man-made ELF MFs on MLT levels 
+ it is relevant to  discuss the functional window discussed  by \citet{Wiltschko2014} 
+in the case of the   avian magnetic compass. The functional window  at $\sim50\mu$T has been shown to be adaptable to variations in the static field.
+Indeed, \citet{Wiltschko2014} and collaborators have shown that, after a few hours, migratory birds regain their magnetic sense at other intensities both low \citep[e.g.][as low as 4$\mu$T]{Winklhofer2013} and high \citep[][up to 92$\mu$T]{Wiltschko2006}. Note the coupling between such a weak field and biological organisms \citep[e.g.][]{ Kattnig2017,Hore2016,Ritz2000,Vanderstraeten2010,Vanderstraeten2018} is far more complex than having  an `internal compass' in their beak and appears to involve chemical reactions on spin-correlated radical pairs, even though  little is understood on the downstream signaling cascade mechanism(s)  \citep[as reviewed in][]{Nordmann2017}.
+ 
+Our result of a threshold-dependent impact of man-made ELF MFs on MLT levels at intensities at or below $B_{\rm thr}\simeq10$--65$\mu$T  calls for a possible  role of the geomagnetic field $B_{\odot}$.  Indeed, the amplitude of the static Earth MF $|B_{\odot}|$ is not constant with time as there are fluctuations on a range of time-scales, from daily fluctuations
+to monthly, annual variations and up to  time-scales of millions of years \citep[see e.g.][]{CourtillotV_1988} due to complex interactions between the solar wind and the magnetosphere.  The daily variations are of the order of 20 to a few hundreds of  nT (i.e., 1000$\times$ smaller than the field strength)
+ due to the impact of the solar wind pressure in the upper atmosphere \citep[e.g.][]{Hitchman1998},   
+and this led \citet{Liboff2013}  to suggest that the
+biological genesis for interactions between living beings and weak ELF could originate from these tiny ($\sim$50 nT) daily swing in the geomagnetic field    because it is a remarkably constant effect exactly in phase with the solar diurnal change.  Hence, as argued in  \citet{Liboff2013},  the widespread sensitivity of biological systems to weak ELF magnetic fields could be  derived from the diurnal geomagnetic variations.
+However, while numerous studies show that MF
+can influence the circadian system, no study has experimentally established that the natural GMF variations can act as a reliable secondary zeitgeber.
+ 
+
+
+\subsection*{Possible Limitations}
+\label{section:limitations}
+
+Our study did not consider other possible parameters that may influence MLT excretion levels due to the lack of consistency in the parameters reported in MLT studies.
+In light of the mechanisms of interaction between MF and biological systems discussed in the introduction %\S~\ref{section:discussion}), 
+such parameter might include
+ (1) the MF polarization, 
+ (2) the amount of light and more importantly, whether or not the spectrum includes blue photons  as magneto-reception appears to be blue-light dependent \citep[e.g.][]{Chasmore1999,Chaves2011,Gegear2008,Michael2017,Ritz2000,Vanderstraeten2018}, 
+ (3) the intensity of blue-light \citep[as magneto-reception might be inversely proportional to the photon flux, e.g.][]{Vanderstraeten2018},
+ (4) the  time of exposure with respect to MLT rise \citep[as suggested by][]{Wood1998,Vanderstraeten2012},
+  (5) the  MF orientation with respect to the geomagnetic field since the radical pair (RP) mechanism involved in CRY
+might depend on the direction of the field line \citep{Wiltschko2014,Zhang2015},
+ (6)  the (blue) light polarization \citep[as discussed in][]{Stoneham2012,Hore2016},
+ (7) the possible adaptation time reported by \citet{Wiltschko2014} for the avian magnetic compass,
+ (8) the age \citep{Vanderstraeten2012} and genetic factors as \citet{Fedrowitz2004} indicated that significant differences might occur from different substraints of rats.
+ 
+
+ 
+\section*{Conclusions}
+\label{section:conclusions}
+
+From our analysis of \Ntot\ studies on the possible variations of MLT levels in humans and rats from \citet{Jahandideh2010,Touitou2012,Halgamuge2013},
+we examined the possible relationship between a dichotomous dependent variable (corresponding to studies showing an effect or no effect on MLT excretion pattern) and independent variables such as exposure duration and magnetic field strength using a  Bayesian approach and a simple logistic regression model. We find that :
+
+\begin{itemize}
+\item the MF exposure duration is the most significant parameter in causing changes in MLT levels both in human (Fig.~\ref{fig:humans}) and rat 
+(Fig.~\ref{fig:rats:2D}) studies, as others have reported \citep[e.g.][]{Jahandideh2010,Kurokawa2003,Savitz2003,Selmaoui1995,Vanderstraeten2012a};
+\item human and rat studies are entirely consistent with one another,  but {\it only after matching the MF strengths} to similar ranges, i.e., $B\lesssim$50$\mu$T ;
+\item there seems to be no dose-dependence between any change in MLT levels with MF strengths ranging from 0.5 to 100$\mu$T as others have reported \citep[e.g.][]{Kato1993,Reiter1993,Pfluger1996,Halgamuge2013};
+%~\footnote{Note this conclusion is not in contradiction with the dose-response effect reported in epidemiological studies at the 0.1--0.5 $\mu$T levels.};
+\item the impact of MF on MLT levels  {\bf does}, however, depend on the ELF MF strength, in the regime where  ELF MFs are weaker than   $B_{\rm thr}\sim30\mu$T  (Fig.~\ref{fig:mcmc}). Such a window effect   was already discussed in \citet{Loscher1998}.
+
+\end{itemize}
+
+
+In light of these results, we suggest to perform additional research on rats with ELF MF with intensities in the range from 20nT to 20$\mu$T, while controlling the additional factors listed in the Limitations section, because  epidemiological studies have indicated that adverse effects on human health become noticeable at $\sim$0.4$\mu$T. But so far very few rat studies involved ELF MF with intensities below 5$\mu$T.  
+ This range 20nT to a few $\mu$T covers the regime experienced by humans in man-made and natural environments. Indeed, the natural variations of the geomagnetic field ranges from 20nT to a few hundreds of nT \citep{Hitchman1998}.
+ 
+ Because MF strengths $>50\mu$T are  not found in nature,
+ studies on rats with  MF strengths $>50\mu$T, or  mT levels,  might reveal a different (likely acute effect) than the duration-dependent effect discussed here,  where
+  perhaps one of the other factors discussed earlier has become dominant.
+
+%Consequently, in light of our results, the ICNIRP protection standards \citep[at 200 / 500$\mu$T,][]{icnirp} need to be revised since (i) these limits presuppose a linear dose-response effect and no time-dependence, and (ii) weak ELF MF seem to have a long-term impact on MLT levels for rats and humans {\bf only} when the ELF MF are weaker than the geo-terrestrial $|B_{\odot}|$.
+
+ 
+  
+ 
+ 
+
+\section*{Acknowledgments}
+This research did not receive any specific grant from funding
+agencies in the public, commercial or not-for-profit sectors.
+We are grateful to Prof. J. Vanderstraeten for very useful comments and perspectives on an earlier draft.
+The entire code used to generate the tables and figures in this paper is available on the CERN zenodo server at \url{
+https://doi.org/10.5281/zenodo.3250994 
+}.
+
+{\it Additional Supporting Information may be found in the online version of the article at the publisher’s website.}
+
+%{\it Software:} This work made use of the following open-source software: \textsc{Numpy} \citep{numpy}, \textsc{Scipy} \citep{scipy}, \textsc{Matplotlib} \citep{matplotlib}, \textsc{Pymc3} \citep{pymc3} and \textsc{Scikit-learn} \citep{sklearn}.
+
+ 
+
+\bibliography{Bfield_Collection_short}
+
+
+\begin{sidewaystable*}
+%\begin{table*}
+\small
+\input{../data/Halgamuge2013_Table4.tex}
+\caption{Studies on the putative effect of ELF magnetic fields on MLT excretion in human subjects taken from \citet{Halgamuge2013}. 
+}
+\label{table:halga}
+Notes: 
+(1) survey identification number as in \citet{Halgamuge2013}; (2) ELF frequency (Hz); (3) EMF strength ($\mu$T);
+(4) Sample size; 
+ (5) Comment; (6) MF exposition duration in hours; (7) Impact on MLT excretion level; (8) When changes  on MLT are observed, increase ($\nearrow$) or decrease ($\searrow$) in MLT level;  (9) References.
+%\end{table*}
+\end{sidewaystable*}
+
+
+
+\begin{sidewaystable*}
+\small
+\input{../data/Jahandideh_Table.tex} 
+\caption{Studies on the putative effect of ELF magnetic fields on MLT excretion in rats. 
+}
+\label{table:rats}
+Notes: 
+(1) survey identification number as in \citet{Jahandideh2010}; (2) ELF frequency (Hz); (3) EMF strength ($\mu$T); (4) polarization; (5) MF exposition in hours; (6) Impact on MLT excretion level; (7) Sample exposed/sham; (8) References.
+\end{sidewaystable*}
+
+\begin{table*}[ht]
+\centering
+\ifthenelse{\equal{\humansModelOneType}{Robust_LR05} \OR \equal{\ratsModelOneType}{Categorical}}{
+\begin{tabular}{ccc}
+\multicolumn{3}{c}{Human studies}\\
+\hline
+& { Model A} &\\
+\hline
+$\alpha$& \humansModelOneALPHA \\
+$\beta$ & \humansModelOneBETA \\
+$\pi$  & \humansModelOnePI\\ 
+\hline
+\end{tabular}
+}{
+\ifthenelse{\equal{\humansModelOneType}{Robust_LR}}{
+\begin{tabular}{ccc}
+\multicolumn{3}{c}{Human studies}\\
+\hline
+& { Model A} &\\
+\hline
+$\alpha_T$& \humansModelOneALPHA \\
+$\beta_T$ & \humansModelOneBETA \\
+$\pi$  & \humansModelOnePI\\
+$p_{\rm out}$ & \humansModelOnePOUT\\
+\hline
+\end{tabular}
+}{
+\begin{tabular}{ccc}
+\multicolumn{3}{c}{Human studies}\\
+\hline
+& { Model A} &\\
+\hline
+$\alpha_T$& \humansModelOneALPHA \\
+$\beta_T$ & \humansModelOneBETA \\
+\hline
+\end{tabular}
+}
+}
+
+\caption{Results on the LR  on MLT levels in humans from the logistic regression using our Bayesian analysis (see text).}
+\label{table:humans:LR}
+\end{table*}
+
+
+\begin{table*}
+\centering
+\ifthenelse{\equal{\ratsModelOneType}{Robust_LR05} \OR \equal{\ratsModelOneType}{Categorical}}{
+\begin{tabular}{ccccc}
+\multicolumn{3}{c}{Rat studies}\\
+\hline
+& { Model A} &  { $|B|<=45\mu$T}  &  {$|B|>45\mu$T}\\
+\hline
+$\alpha_T$ & \ratsModelOneALPHA &  \ratsModelOneBALPHA &   \ratsModelOneCALPHA\\ %-0.2 [-1.3---0.7] (95\%) \\
+$\beta_T$ &  \ratsModelOneBETA   &  \ratsModelOneBBETA   &   \ratsModelOneCBETA\\ %-0.0 [-1.9---3.2] (95\%) \\ \%) \\ 
+$\pi $  & \ratsModelOnePI &  \ratsModelOneBPI &   \ratsModelOneCPI\\
+\hline
+& {Model B}\\
+\hline
+$\alpha$ &	\ratsModelThreeALPHA\\% 4.2 [0.04---16.4]  (95\%)\\
+$\beta$ & 	\ratsModelThreeBETA \\ %1.5 [-1.1---1.9] (95\%) \\
+$\gamma$ &\ratsModelThreeGAMMA\\%0.2 [-0.4---1.2] (95\%) \\
+$\log B_t$ &  \ratsModelThreeSWITCH\\ %1.36 [0.96---1.78]  (68\%)\\
+$\pi $  & \ratsModelThreePI\\
+\hline 
+ \end{tabular}
+}{
+\ifthenelse{\equal{\humansModelOneType}{Robust_LR}}{
+\begin{tabular}{ccccc}
+\multicolumn{3}{c}{Rat studies}\\
+\hline
+& { Model A} &  { $|B|<=45\mu$T}  &  {$|B|>45\mu$T}\\
+\hline
+$\alpha_T$ & \ratsModelOneALPHA &  \ratsModelOneBALPHA &   \ratsModelOneCALPHA\\ %-0.2 [-1.3---0.7] (95\%) \\
+$\beta_T$ &  \ratsModelOneBETA   &  \ratsModelOneBBETA   &   \ratsModelOneCBETA\\ %-0.0 [-1.9---3.2] (95\%) \\ \%) \\ 
+$\pi $  & \ratsModelOnePI\\
+$p_{\rm out}$ & \ratsModelOnePOUT\\
+\hline
+& {Model B}\\
+\hline
+$\alpha$ &	\ratsModelThreeALPHA\\% 4.2 [0.04---16.4]  (95\%)\\
+$\beta$ & 	\ratsModelThreeBETA \\ %1.5 [-1.1---1.9] (95\%) \\
+$\gamma$ &\ratsModelThreeGAMMA\\%0.2 [-0.4---1.2] (95\%) \\
+$\log B_t$ &  \ratsModelThreeSWITCH\\ %1.36 [0.96---1.78]  (68\%)\\
+$\pi $  & \ratsModelThreePI\\
+$p_{\rm out}$ & \ratsModelThreePOUT\\
+\hline 
+ \end{tabular}
+}%else
+{
+\begin{tabular}{ccccc}
+\multicolumn{3}{c}{Rat studies}\\
+\hline
+& { Model A} &  { $|B|<=45\mu$T}  &  {$|B|>45\mu$T}\\
+\hline
+$\alpha_T$ & \ratsModelOneALPHA &  \ratsModelOneBALPHA &   \ratsModelOneCALPHA\\ %-0.2 [-1.3---0.7] (95\%) \\
+$\beta_T$ &  \ratsModelOneBETA   &  \ratsModelOneBBETA   &   \ratsModelOneCBETA\\ %-0.0 [-1.9---3.2] (95\%) \\ \%) \\ 
+\hline
+& {Model B}\\
+\hline
+$\alpha$ &	\ratsModelThreeALPHA\\% 4.2 [0.04---16.4]  (95\%)\\
+$\beta$ & 	\ratsModelThreeBETA \\ %1.5 [-1.1---1.9] (95\%) \\
+$\gamma$ &\ratsModelThreeGAMMA\\%0.2 [-0.4---1.2] (95\%) \\
+$\log B_t$ &  \ratsModelThreeSWITCH\\ %1.36 [0.96---1.78]  (68\%)\\
+\hline 
+ \end{tabular}
+}
+}
+\caption{Results from our Bayesian LR  on MLT levels in rats (see text) with confidence intervals.}
+\label{table:rats:LR}
+\end{table*}
+
+\begin{table*}
+\centering
+\begin{tabular}{lccccccc}
+model & $t(\theta)$ & Data-Set & N & WAIC & LOO-CV      \\
+(1) & (2) & (3) & (4) & (5) & (6)  \\
+\hline
+ A &$\alpha_T( \log T-\beta_T) $ 									& Humans &\Nhums& \humansModelOneWAIC &  \humansModelOneLOO  \\
+% 2 &$\alpha_T( \log T-\beta_T)+\alpha_B( \log B-\beta_B)$		& Humans &\Nhums &\humansModelTwoWAIC &  \humansModelTwoLOO  \\  
+% 3 &$\alpha,\gamma( \log T-\beta)$ with $\log B \lessgtr B_t$ 	& Humans &\Nhums & \humansModelThreeWAIC &  \humansModelThreeLOO &(\humansModelThreeDIC) \\  
+%
+ A &$\alpha_T(\log T-\beta_T)$									& Rats  &\Nrats & \ratsModelOneWAIC & \ratsModelOneLOO  \\
+% 2 &$\alpha_T(\log T-\beta_T) +\alpha_B( \log B-\beta_B)$ 		& Rats  &\Nrats & \ratsModelTwoWAIC & \ratsModelTwoLOO  \\
+ B &$\alpha,\gamma( \log T-\beta)$  with $\log B \lessgtr B_t$ 	& Rats  &\Nrats & \ratsModelThreeWAIC & \ratsModelThreeLOO \\
+\hline
+\end{tabular}
+\caption{Information Criterion for the models considered in this paper.
+Notes: (1) Model number; (2) Functional form $t$ in Eq.~\ref{eq:model}; (3) Date-set; (4) Number of studies; (5) WAIC: Widely Available Information Criteria from \citet{Watanabe2013};   (6) LOO-CV: Leave-One-Out   Cross-Validations from \citet{Vehtari2016}.
+}
+\label{table:waic}
+\end{table*}
+
+
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Figures
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Figures
+
+
+%% Figure 1
+
+\begin{figure*}
+\centering
+	\includegraphics[width=12cm]{Figure1.pdf}
+	\caption{Histogram of MF strength for studies involving human (hatched) and rats (solid). The vertical dotted line represents the  geomagnetic field  $B_{\odot}$ at 50$\mu$T.
+A KS-test indicate the two histograms are not drawn from the same parent population, with a P-value of \HistPval.}
+\label{fig:Bhist}
+\end{figure*}
+
+%%Figure 2
+
+\begin{figure*}
+\centering
+\includegraphics[width=15cm]{Figure2.pdf}
+\caption{{\it Left}:  Bayesian Logistic Regression  (model A) on human studies. The top panel shows the data in the $\log T$--$\log B$ plane along with the model A prediction (grey scale). The vertical line shows the best fit $\beta_T$ parameter, i.e., where the probability $p$ for having an effect is 0.5.
+The bottom panel shows the data as a function of exposure  duration $\log T$ and the red solid line represents the best fit logistic model with the shaded region representing the 95\%\ posterior predictive interval.  
+{\it Right:}
+Non-parametric Support Vector Classification (SVC) using a Radial Basis Function (RBF) kernel with penalty parameter $C=3.2$ determined by cross-validation.   
+In both panels, the $x$-values have been offseted by a small (random) amount to help distinguish overlapping data points.
+}
+\label{fig:humans}
+\end{figure*}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm]{Figure3.pdf}
+\caption{Bayesian Logistic Regression (model A) on rat studies with magnetic field strength $B$ above (below) 
+$\ratsModelOneBthreshold \mu T$ shown in the top (bottom) panel respectively.
+}
+\label{fig:rats:modelA}
+\end{figure}
+
+\begin{figure*}
+\centering
+\includegraphics[width=15cm]{Figure4.pdf}
+\caption{{\it Left:} Bayesian Logistic Regression (model B) on laboratory rat studies shown in the $\log T$--$\log B$ plane shown along with the model predictions (grey scale). The horizontal dot-dashed line represents the best fit $B_{\rm thr}$ threshold inferred by the model and the vertical solid line represents the  best fit $\beta$ parameter, i.e., where the probability $p$ for having an effect is 0.5.
+{\it Right:}
+Non-parametric Support Vector Classification (SVC) using a RBF kernel with penalty parameter $C=3.2$ determined by cross-validation.   
+In both panels, the $x$-values hasve been offseted by a small (random) amount  to help distinguish overlapping data points.
+}
+\label{fig:rats:2D}
+\end{figure*}
+
+
+\begin{figure*}
+\centering
+\includegraphics[width=9cm]{Figure5.pdf}
+\caption{MCMC posterior distribution for the  parameters of LR model B  applied on MLT levels in rats.
+}
+\label{fig:mcmc}
+\end{figure*}
+
+ 
+
+\end{document}
