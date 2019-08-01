@@ -370,7 +370,7 @@ def main(run, outpath=None,summary=False,figure=None,  with_outliers="Robust_LR"
         
         f.savefig(path+'Figure2.pdf')
         
-    if figure is None or figure==22:
+    if figure==22:
         #figure 2 variant compact
         f=plt.figure(2,figsize=(14,8))
         f.clf()
