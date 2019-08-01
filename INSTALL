@@ -3,7 +3,8 @@
 
 See requirement.txt
 
-# Use either Python 2.7 or Python 3.5
+# Use either (Python 2.7) or Python 3.5 (preferred)
+# Note: pymc3 is not compatible with python 3.7
 
 Note: it is a good advise to install Python 2.7 or Python 3.5 in virtualenv in order to not interfere with your installation
 
