@@ -9,7 +9,9 @@ The figures of the paper can be made using the script below.
 
 See the INSTALL instructions
 
-# Run with run_all(run=True,output='path_to_save/')
+# Run with 
+
+"run_all(run=True,output='path_to_save/')"
 
 cd logistic-bioem
 ipython
