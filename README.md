@@ -11,7 +11,7 @@ See the INSTALL instructions
 
 # Run from logistic-bioem directory with 
 
-"run_all(run=True,outpath='path_to_save/')"
+"run_all.main(run=True,outpath='path_to_save/')"
 
 cd logistic-bioem;
 
@@ -38,6 +38,13 @@ python logistic/run_all.py path_to_save --format default        #to turnoff robu
 To rerun the figures without running the Baeysian code:
 ```
 python logistic/run_all.py paper/ --read
+```
+This should create the macro file and the 5 figures.
+
+# make paper
+```
+cd paper
+pdflatex bfield_bioem; bibtex bfield_bioem; pdflatex bfield_bioem; pdflatex bfield_bioem
 ```
 
 # Bugs & issues
