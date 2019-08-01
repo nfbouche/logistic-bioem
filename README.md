@@ -13,7 +13,8 @@ See the INSTALL instructions
 
 "run_all(run=True,output='path_to_save/')"
 
-cd logistic-bioem
+cd logistic-bioem;
+
 ipython
 ```
 from logistic import run_all
