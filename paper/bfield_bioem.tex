@@ -1,4 +1,4 @@
-\documentclass[letter]{article}
+\documentclass[letter,twoside]{article}
  
 \usepackage{color}
 \usepackage{graphicx}
@@ -15,7 +15,11 @@
 \usepackage{geometry}
 \geometry{legalpaper, margin=1in}
 
-
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}% Clear header/footer
+\fancyhead[LE]{Bouch\'e and McConway}% Centred header on Even pag
+\fancyhead[RO]{New Insights on Melatonin and ELF MF}% Centred header on Odd page
 
 %\usepackage[doublespacing]{setspace}
 
@@ -101,7 +105,7 @@ would increase the risk of developing a disease or cancer.  This hypothesis was 
 because (i) it was known by \citet{Stevens1996} that somehow the pineal gland responds to artificial EMF 
 \citep[since  the 80s:][]{Reiter1992,Reiter1993,Reiter1994,Stemm1980,Wilson1989,Wilson1990},
  and (ii) because MLT is an effective anti-oxident agent, free radical scavenger, and a potent oncostatic agent \citep[e.g.][]{Allegra2003,Henshaw2005,Jung2006,Panzer1997,Reiter2016,Rodriguez2004}.  
- Thus reduced MLT  levels could lead to an increase risk of cancer \citep[e.g.][]{Guenel1996,Kliukiene2004,Koeman2014} and other neurodegenerative  illnesses \citep[e.g.][]{Davanipour2014,Feychting2003,Huss2008} by increasing the oxidative stress as described in \citet{Mevissen1998} and reviewed in \citet{Consales2012}.
+ Thus reduced MLT  levels could lead to an increase risk of cancer \citep[e.g.][]{Guenel1996,Kliukiene2004,Koeman2014} and other neurodegenerative  illnesses \citep[e.g.][]{Davanipour2014,Feychting2003,Huss2009, Huss2018} by increasing the oxidative stress as described in \citet{Mevissen1998} and reviewed in \citet{Consales2012}.
  
  This hypothetical connection made by \citet{Stevens1996} between    circadian rhythm disruption and certain illnesses 
 has been revisited in the context of childhood leukemia by \citet{Henshaw2005}. 
@@ -110,7 +114,7 @@ with severed optical nerves not longer respond to ELF-MF \citep{Olcese1985}. The
 a plausible scenario in light of recent developments in the study of magneto-reception from behavioural 
 \citep[e.g.][]{Bazalova2016,Gegear2008,Johnsen2005,kirschvink1991,Phillips1992,Ritz2004,Ritz2009, Malkemper2015,Sherrard2018,Wiltschko2005,Winklhofer2013,Wiltschko2014,Wiltschko2016,Yoshii2009}
 and  theoretical investigations \citep[e.g.][]{Hore2016,Ritz2010}
-where the cryptochrome CRY proteins discovered in the 90s  \citep{Ahmad1993,Ahmad2007,Ahmad1999,Ahmad2016,Chasmore1999,Chaves2011} would provide the radical pair mechanism postulated by \citet{Schulten1978} and
+where the cryptochrome (CRY) proteins discovered in the 90s  \citep{Ahmad1993,Ahmad2007,Ahmad1999,Ahmad2016,Chasmore1999,Chaves2011} would provide the radical pair mechanism postulated by \citet{Schulten1978} and
 be the (light-dependent) MF receptor 
 %~\footnote{See \citet{Weaver2000,Hore2012,Binhi2017,KapriPardes2017} and references therein for alternative magnetically sensitive chemical reactions.}
  \citep{Hore2016,Liedvogel2010,Michael2017,Ritz2010b}.   
@@ -156,7 +160,7 @@ In Table~\ref{table:halga}, some studies claim that MLT levels are affected, but
 In contrast, other studies claim that the MLT level is not affected by MFs.  The effect/no-effect outcome naturally leads to 
  logistic modeling (described in the Methods section) appropriate for such binary situations   \citep{Hosmer2000}. The logistic approach makes no implicit assumption and is simpler than invoking a model that assumes a linear relation between MLT levels, exposure duration, etc.
 
- Unfortunately, MLT studies are heterogeneous and there is no universal way to quantify the amount of decrease in MLT production across these studies. Thus,  we assign the outcome of the studies listed in Table~\ref{table:halga} a 1(0) depending on whether the original authors reported change (no change)  in MLT levels, respectively. When the study reported `some' change, we assign the outcome of the study a 0.5. This would correspond to, for instance, when changes were observed only for a sub-group of the study.
+ Unfortunately, MLT studies are heterogeneous and there is no universal way to quantify the amount of decrease in MLT production across these studies. Thus,  we assign the outcome of the studies listed in Table~\ref{table:halga} a 1 (0) depending on whether the original authors reported change (no change)  in MLT levels, respectively. When the study reported `some' change, we assign the outcome of the study a 0.5. This would correspond to, for instance, when changes were observed only for a sub-group of the study.
 %Melatonine Cells: \citet{Cid2012}
 
 
@@ -167,7 +171,7 @@ In contrast, other studies claim that the MLT level is not affected by MFs.  The
 whose list is reproduced in  Table~\ref{table:rats}. 
 We  removed the entries that were not consistent with the original study, e.g. the entries with ID 13,14 and 15 from \citet{John1998}.
 In addition, we added the study of \citet{Loscher1994} and \citet{Loscher1998}.
-As in the previous section, we assign rat studies a 1(0) depending on whether the authors reported change (no change)  in  MLT levels, respectively.
+As in the previous section, we assign rat studies a 1 (0) depending on whether the authors reported change (no change)  in  MLT levels, respectively.
 
 \citet{Jahandideh2010} investigated whether the MF exposure duration, MF polarization and other factors play a role. They concluded that the only factor that seemed to be the most significant is the duration of exposition to ELF MF, albeit with a  P-value of 0.07 implying that this factor is not significant at more than $>$95\%\ level, using a model linear with exposure duration and with field strength.
 
@@ -243,8 +247,9 @@ t&\equiv& \begin{cases}
 \end{eqnarray}
 where $\alpha,\gamma$ are the linear slope, $\beta$ the transition point of the logistic function, and $B_{\rm thr}$ is the threshold level for model B. 
 
-In order to find the best parameters $\hat \theta$ for our model, we  use a Markov Chain Monte Carlo  
-(MCMC) algorithm. Because traditional MCMC algorithms are somewhat sensitive to the step size  and the desired number of steps. In what follows, we use the No-U Turn Sampler (NUTS) of \citet{Hoffman2014} -- implemented in \textsc{Pymc3} \citet{pymc3}, -- a self-tuning variant of Hamiltonian Monte Carlo (HMC), except when the model is not continuous  (as in model B) where we revert to  the traditional Metropolis-Hasting sampling method.
+
+We  use a Markov Chain Monte Carlo  
+(MCMC) algorithm to estimate the best parameters $\hat \theta$ for our model.  Because traditional MCMC algorithms are somewhat sensitive to the step size  and the desired number of steps. In what follows, we use the No-U Turn Sampler (NUTS) of \citet{Hoffman2014} -- implemented in \textsc{Pymc3} \citet{pymc3}, -- a self-tuning variant of Hamiltonian Monte Carlo (HMC), except when the model is not continuous  (as in model B) where we revert to  the traditional Metropolis-Hasting sampling method.
 We typically use 2   MCMC chains per run and 15,000 iterations to 25,000 iterations per chain.
 %Throughout, we use uninformative proper priors (such as in Eq.~\ref{eq:priors:linearT}) on bound intervals. 
  
@@ -278,18 +283,18 @@ Regarding model A (described in the Methods section), we use   the following (un
 where  the ${\cal N}(\mu,\sigma)$ is the normal distribution truncated on the interval [-5,5] and ${\cal U}$ is the Uniform distribution.
 The best fit parameters of model A with their 95\%\ credible intervals are  $\beta_T=\humansModelOneBeta$\humansModelOneBetaErr\  and  $\alpha_T=\humansModelOneAlpha$\humansModelOneAlphaErr\ (Table~\ref{table:humans:LR}).
 
-Figure~\ref{fig:humans}(left) shows the result from the LR model A applied on the \Nhums\ human studies reporting change or no change to human MLT levels. The top panel shows the data in the plane $\log B$---$\log T$ where the model predictive values are represented by the grey scale. The vertical line represents the best fit $\beta_T$ parameter, i.e., where the probability to have an effect is modeled to be 0.5.
-The bottom panel shows the model prediction (red solid line) as a function of  exposure duration $T$   where vertical dotted-dashed lines indicating a day, a month, and a year.  The shaded gray region represents the 95\%\ posterior uncertainties, calculated using the \citet{Wilson1927} score confidence interval  for binomial distributions, verified to be a continuous representation of the uncertainties found from the MCMC posteriors.  
+Figure~\ref{fig:humans}(left) shows the result from the LR model A applied on the \Nhums\ human studies reporting change or no change to human MLT levels. The top panel shows the data in the  $\log B$---$\log T$ plane where the model predictive values are represented by the grey scale. The vertical line represents the best fit $\beta_T$ parameter, i.e., where the probability to have an effect is  0.5.
+The bottom panel shows the model prediction (red solid line) as a function of  exposure duration $T$ (on a log scale)  where vertical dotted-dashed lines indicating a day, a month, and a year.  The shaded gray region represents the 95\%\ posterior uncertainties, calculated using the \citet{Wilson1927} score confidence interval  for binomial distributions, verified to be a continuous representation of the uncertainties found from the MCMC posteriors.  
 This figure shows that ELF-MFs start to have  an effect on MLT levels  with a probability larger than 50\%\ at around $\sim$\humansModelOneBetaDays~days. 
 
 Figure~\ref{fig:humans}(right) shows the same  \Nhums\ human studies  where we applied a  non-parametric SVC algorithm  and studies reporting change, partial change and no change on MLT levels are shown in red, yellow and blue respectively.
-This figure confirms that the studies reporting changes in MLT levels are predominantly in the region of parameter space with long exposure duration, supporting the results from the parametric LR shown on the left panel, and is not driven by a few rogue false data points. 
+This figure confirms that the studies reporting changes in MLT levels are predominantly in the region of parameter space with long exposure duration, supporting the results from the parametric LR shown on the left panel of Figure~\ref{fig:humans}, and is not driven by a few rogue false data points. 
 
 \subsection*{Results on rat studies}
 \label{section:results:rats}
 
-We performed a similar analysis on the  studies available on laboratory rats (described earlier) and the results are listed  in  Table~\ref{table:rats:LR}. One notable difference  between studies involving humans or rats, is that the duration coefficient $\alpha_T$
- appears to be much weaker in the case of rat studies ($\alpha_T\simeq \ratsModelOneAlpha$) than in the case of humans ($\alpha_T\simeq \humansModelOneAlpha$) and  $\alpha_T$ is much less significant  for rats.
+We performed a similar analysis on the  studies available on laboratory rats (described earlier) and the results are listed  in  Table~\ref{table:rats:LR}. By comparing Table~\ref{table:rats:LR} to Table~\ref{table:humans:LR}, one sees that a notable difference  between studies involving humans or rats, is that the duration coefficient $\alpha_T$
+ appears to be much weaker in the case of rat studies ($\alpha_T\simeq \ratsModelOneAlpha$) than in the case of humans ($\alpha_T\simeq \humansModelOneAlpha$). Also,  $\alpha_T\neq0$ is much less significant  for rats.
 However, we remind the reader that, as shown in Figure~\ref{fig:Bhist}, only a handful of human studies  have MF strength above $
 \sim$50 $\mu$T, while about half of the studies on rats have MFs above this level.
 
@@ -317,27 +322,26 @@ Figure~\ref{fig:rats:2D} (right) shows  the non-parametric SVC analysis, and str
  We note that the transition field  strength of $\sim50\mu$T   corresponds to
 two different regimes, one where the ELF MF are a mere perturbation to the ambient static terrestrial MF, which has
 an amplitude of $B_{\odot}\simeq50\mu$T, and the other where time varying ELF MF are the sole dominant contribution.  
-We discuss the implications of this in the next section.
+ 
 
 
 \subsection*{Discussion}
  \label{section:discussion}
  
 
-In the context of our result of a threshold-dependent impact of man-made ELF MFs on MLT levels 
- it is relevant to  discuss the functional window discussed  by \citet{Wiltschko2014} 
-in the case of the   avian magnetic compass. The functional window  at $\sim50\mu$T has been shown to be adaptable to variations in the static field.
-Indeed, \citet{Wiltschko2014} and collaborators have shown that, after a few hours, migratory birds regain their magnetic sense at other intensities both low \citep[e.g.][as low as 4$\mu$T]{Winklhofer2013} and high \citep[][up to 92$\mu$T]{Wiltschko2006}. Note the coupling between such a weak field and biological organisms \citep[e.g.][]{ Kattnig2017,Hore2016,Ritz2000,Vanderstraeten2010,Vanderstraeten2018} is far more complex than having  an `internal compass' in their beak and appears to involve chemical reactions on spin-correlated radical pairs, even though  little is understood on the downstream signaling cascade mechanism(s)  \citep[as reviewed in][]{Nordmann2017}.
- 
-Our result of a threshold-dependent impact of man-made ELF MFs on MLT levels at intensities at or below $B_{\rm thr}\simeq10$--65$\mu$T  calls for a possible  role of the geomagnetic field $B_{\odot}$.  Indeed, the amplitude of the static Earth MF $|B_{\odot}|$ is not constant with time as there are fluctuations on a range of time-scales, from daily fluctuations
-to monthly, annual variations and up to  time-scales of millions of years \citep[see e.g.][]{CourtillotV_1988} due to complex interactions between the solar wind and the magnetosphere.  The daily variations are of the order of 20 to a few hundreds of  nT (i.e., 1000$\times$ smaller than the field strength)
+
+Our result of a threshold-dependent impact of man-made ELF MFs on MLT levels at intensities at or below $B_{\rm thr}\simeq10$--65$\mu$T  calls for a possible  role of the geomagnetic field $B_{\odot}$.  Indeed, the amplitude of the static Earth MF $|B_{\odot}|$ is not constant with time as there are fluctuations on a range of time-scales, including daily, monthly, annual variations and fluctuations on time-scales of millions of years \citep[see e.g.][]{CourtillotV_1988} due to complex interactions between the solar wind and the magnetosphere.  The daily variations are of the order of 20 to a few hundreds of  nT (i.e., 1000$\times$ smaller than the field strength)
  due to the impact of the solar wind pressure in the upper atmosphere \citep[e.g.][]{Hitchman1998},   
 and this led \citet{Liboff2013}  to suggest that the
 biological genesis for interactions between living beings and weak ELF could originate from these tiny ($\sim$50 nT) daily swing in the geomagnetic field    because it is a remarkably constant effect exactly in phase with the solar diurnal change.  Hence, as argued in  \citet{Liboff2013},  the widespread sensitivity of biological systems to weak ELF magnetic fields could be  derived from the diurnal geomagnetic variations.
 However, while numerous studies show that MF
 can influence the circadian system, no study has experimentally established that the natural GMF variations can act as a reliable secondary zeitgeber.
  
-
+In the context of our result of a threshold-dependent impact of man-made ELF MFs on MLT levels 
+ it is relevant to  discuss the functional window discussed  by \citet{Wiltschko2014} 
+in the case of the   avian magnetic compass. The functional window  at $\sim50\mu$T has been shown to be adaptable to variations in the static field.
+Indeed, \citet{Wiltschko2014} and collaborators have shown that, after a few hours, migratory birds regain their magnetic sense at other intensities both low \citep[e.g.][as low as 4$\mu$T]{Winklhofer2013} and high \citep[][up to 92$\mu$T]{Wiltschko2006}. Note the coupling between such a weak field and biological organisms \citep[e.g.][]{ Kattnig2017,Hore2016,Ritz2000,Vanderstraeten2010,Vanderstraeten2018} is far more complex than having  an `internal compass' in their beak and appears to involve chemical reactions on spin-correlated radical pairs, even though  little is understood on the downstream signaling cascade mechanism(s)  \citep[as reviewed in][]{Nordmann2017}.
+ 
 
 \subsection*{Possible Limitations}
 \label{section:limitations}
