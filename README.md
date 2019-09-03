@@ -1,13 +1,13 @@
 # logistic-bioem
 Logistic Regression on Melatonin Biodata by  Nicolas Bouché (nicolas.bouche@univ-lyon1.fr).
 
-This is the algorithm used to perform the analysis in Bouché & McConway, Bioelectromagnetics 2019
+This is the algorithm used to make the figures used in the analysis in Bouché & McConway, Bioelectromagnetics 2019 (in press).
 
 It uses PyMC3 and requires python2.7 or 3.5 (in a virtual environment). See INSTALL for instruction.
 
 The figures of the paper can be made using the script below.
 
-See the INSTALL instructions
+It is archived under https://zenodo.org/record/3250993 or https://doi.org/10.5281/zenodo.3250993 
 
 # Run from logistic-bioem directory with 
 
