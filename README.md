@@ -11,7 +11,6 @@ See the INSTALL instructions
 
 # Run from logistic-bioem directory with 
 
-"run_all.main(run=True,outpath='path_to_save/')"
 
 cd logistic-bioem;
 
