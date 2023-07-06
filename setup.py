@@ -27,5 +27,5 @@ setup(
     packages=find_packages(),
     package_dir = {'logistic' : '.'},
     package_data = {'logistic': ['data/*tex']},
-    install_requires=['astropy>=2.0', 'numpy>=1.14', 'scipy>=1.0.1,<1.2', 'matplotlib>=2.0', 'pandas>=0.18', 'pymc3==3.3', 'theano==1.0.4'],
+    install_requires=['astropy>=2.0', 'numpy>=1.14', 'scipy>=1.0.1,<1.11', 'matplotlib>=2.0', 'pandas>=0.18', 'pymc3==3.3', 'theano==1.0.4'],
 )
